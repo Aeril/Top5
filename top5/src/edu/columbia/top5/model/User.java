@@ -56,6 +56,8 @@ public class User {
 	public void setQuestionsAnswered(List<Integer> questionsAnswered) {
 		this.questionsAnswered = questionsAnswered;
 	}
-	
+	public static void main(String [] args) {
+		System.out.println("test");
+	}
 	
 }
