@@ -15,7 +15,7 @@ public class MainLauncher {
 	
 	public static void main(String[] args) {
 		
-		generateUsers(10);
+		init();
 		
 		System.out.println("========");
 		System.out.println("Welcome to top5 console app");
@@ -75,6 +75,12 @@ public class MainLauncher {
 		}
 	}
 	
+	private static void init() {
+		generateUsers(10);
+		QuestionLauncher.INSTANCE.init();
+		
+	}
+
 	private static void authenticate(String username, String password) {
 		user = UserManager.INSTANCE.authenticate(username, password);
 		if(user != null) {
@@ -93,11 +99,9 @@ public class MainLauncher {
 	
 	
 	private static void askQuestions(int nQuestions, Scanner sc) {
-		QuestionLauncher ql = null;
-		List<Question> questions = null;
 		
-		ql = new QuestionLauncher(user);
-		questions = ql.poseQuestions(nQuestions);
+		List<Question> questions = null;
+		questions = QuestionLauncher.INSTANCE.poseQuestions(user, nQuestions);
 		
 		for (Question question : questions) {
 			System.out.println(question.getText());
@@ -119,11 +123,10 @@ public class MainLauncher {
 		for (int i = 0; i < n; i++) {
 			//Create a new user
 			createUser(Integer.toString(i), pwd);
-			QuestionLauncher ql = null;
-			List<Question> questions = null;
 			
-			ql = new QuestionLauncher(user);
-			questions = ql.poseQuestions(nQuestions);
+			List<Question> questions = null;
+			questions = QuestionLauncher.INSTANCE.poseQuestions(user, nQuestions);
+			
 			for (Question question : questions) {
 				System.out.println(question.getText());
 				List<String> options = question.getAnswers();

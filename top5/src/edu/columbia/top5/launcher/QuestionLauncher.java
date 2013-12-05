@@ -11,30 +11,29 @@ import edu.columbia.top5.model.Question;
 import edu.columbia.top5.model.QuestionParser;
 import edu.columbia.top5.model.User;
 
-public class QuestionLauncher {
-
+public enum QuestionLauncher {
+	INSTANCE;
+	
 	private User cUser = null;
 	private List<Question> availableQuestions = null;
 	
-	
-	public QuestionLauncher(User user) {
-		this.cUser = user;
+	public void init() {
 		if(availableQuestions == null) {
 			try {
 				availableQuestions = QuestionParser.parserQuestions(QuestionParser.filename);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Oops - Check your question file");
+				System.err.println("Error parsing questions for users");
 				e.printStackTrace();
 			}
-			
 		}
+		
+		
 	}
 
-
-	public List<Question> poseQuestions(int n) {
+	public List<Question> poseQuestions(User user, int n) {
 		
 		//CAVEAT: right now if the user has answered all questions we just clear the list and start again
+		this.cUser = user;		
 		List<Question> tba = new ArrayList<Question>();
 		Random r = new Random();
 		Set<Integer> used = new HashSet<Integer>();
