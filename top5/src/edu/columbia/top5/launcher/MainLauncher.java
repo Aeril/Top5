@@ -1,8 +1,7 @@
 package edu.columbia.top5.launcher;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import edu.columbia.top5.mgr.UserManager;
@@ -13,7 +12,11 @@ public class MainLauncher {
 
 	private static User user;
 	
+	
 	public static void main(String[] args) {
+		
+		generateUsers(10);
+		
 		System.out.println("========");
 		System.out.println("Welcome to top5 console app");
 		System.out.println("========");
@@ -106,5 +109,35 @@ public class MainLauncher {
 			user.update(question, ans-1);
 		}
 		//updateUser with questions
+	}
+	
+	private static void generateUsers(int n) {
+		
+		String pwd = "pwd";		
+		int nQuestions = 5;
+		Random r = new Random();
+		for (int i = 0; i < n; i++) {
+			//Create a new user
+			createUser(Integer.toString(i), pwd);
+			QuestionLauncher ql = null;
+			List<Question> questions = null;
+			
+			ql = new QuestionLauncher(user);
+			questions = ql.poseQuestions(nQuestions);
+			for (Question question : questions) {
+				System.out.println(question.getText());
+				List<String> options = question.getAnswers();
+				for (int j = 0; j < options.size(); j++) {
+					System.out.println((j+1)+". " + options.get(j));
+				}
+				int ans = r.nextInt(options.size());
+				System.out.println("Answered " + ans);
+				user.update(question, ans);
+			}
+			
+			
+		}
+		
+		System.out.println("Started with "+ UserManager.INSTANCE.getUserCount() + " users");
 	}
 }

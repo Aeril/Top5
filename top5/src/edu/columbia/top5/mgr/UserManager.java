@@ -26,6 +26,9 @@ public enum UserManager {
 		
 	}
 	
+	public int getUserCount() {
+		return this.userDb.size();
+	}
 	
 	
 }
