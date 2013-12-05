@@ -13,7 +13,7 @@ public class Question {
 	HashMap <String, int[]> answersAttr = null;
 	int featureNumber = 9;
 	
-	Question (List<String> al) {
+	public Question (List<String> al) {
 		id = Integer.parseInt(al.get(0));
 		text = al.get(1);
 		answers = new ArrayList <String>();
@@ -55,6 +55,13 @@ public class Question {
 	public void setAnswers(List<String> answers) {
 		this.answers = answers;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 	
 	

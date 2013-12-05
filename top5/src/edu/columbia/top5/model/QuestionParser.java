@@ -11,7 +11,7 @@ import au.com.bytecode.opencsv.CSVReadProc;
 public class QuestionParser {
 	
 	static List<Question> ql = null; //Question List
-	static String filename = "resources/ProductReviews.csv";
+	public static String filename = "resources/ProductReviews.csv";
 
 	private static final CSV csv = CSV
             .separator(',')
